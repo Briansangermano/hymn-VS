@@ -1,3 +1,66 @@
+const translations = {
+  es: {
+    appName: 'HymnVS',
+    subtitle: 'Convierte números de himnos entre ediciones',
+    labelEdition1: 'Buscar en Edición 1',
+    labelEdition2: 'Buscar en Edición 2',
+    placeholder: 'Ingresa número de himno',
+    resultEdition1: 'Edisión 1:',
+    resultEdition2: 'Edición 2:',
+    sheetmusic: 'Partitura:',
+    notFound: 'Himno no encontrado',
+    footer: 'HymnVS — Convertidor de Himnos'
+  },
+  en: {
+    appName: 'HymnVS',
+    subtitle: 'Convert hymn numbers between editions',
+    labelEdition1: 'Search in Edition 1',
+    labelEdition2: 'Search in Edition 2',
+    placeholder: 'Enter hymn number',
+    resultEdition1: 'Edition 1:',
+    resultEdition2: 'Edition 2:',
+    sheetmusic: 'Sheetmusic:',
+    notFound: 'Hymn not found',
+    footer: 'HymnVS — Hymn Number Converter'
+  }
+};
+
+let currentLang = 'es';
+
+const langToggle = document.getElementById('lang-toggle');
+
+function initLang() {
+  savedLang = localStorage.getItem('lang');
+  if (savedLang && translations[savedLang]) {
+    currentLang = savedLang;
+  }
+  updateLang();
+}
+
+function updateLang() {
+  langToggle.textContent = currentLang === 'es' ? 'ES' : 'EN';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLang][key]) {
+      el.textContent = translations[currentLang][key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[currentLang][key]) {
+      el.placeholder = translations[currentLang][key];
+    }
+  });
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  localStorage.setItem('lang', currentLang);
+  updateLang();
+}
+
+langToggle.addEventListener('click', toggleLang);
+
 const themeToggle = document.getElementById('theme-toggle');
 const sunIcon = document.getElementById('sun-icon');
 const moonIcon = document.getElementById('moon-icon');
@@ -644,3 +707,4 @@ edition2Input.addEventListener('paste', (e) => {
 });
 
 initTheme();
+initLang();

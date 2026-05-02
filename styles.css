@@ -94,12 +94,16 @@ body {
 .header-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .header-top .title-wrapper {
   flex: 1;
-  text-align: left;
+}
+
+.header-controls {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .title {
@@ -128,7 +132,7 @@ body {
   75% { transform: translateY(-8px) rotate(3deg) scale(1.05); }
 }
 
-.theme-toggle {
+.theme-toggle, .lang-toggle {
   background: none;
   border: 2px solid var(--border);
   border-radius: 50%;
@@ -140,9 +144,11 @@ body {
   cursor: pointer;
   color: var(--text-light);
   transition: border-color 0.2s, color 0.2s;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover, .lang-toggle:hover {
   border-color: var(--primary);
   color: var(--primary);
 }
@@ -155,7 +161,7 @@ body {
 .subtitle {
   color: var(--text-light);
   font-size: 0.95rem;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
   text-align: left;
 }
 

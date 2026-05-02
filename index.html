@@ -17,24 +17,27 @@
               <svg class="title-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
               </svg>
-              HymnVS
+              <span data-i18n="appName">HymnVS</span>
             </h1>
+            <p class="subtitle" data-i18n="subtitle">Convert hymn numbers between editions</p>
           </div>
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-            <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
-            <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
-          </button>
+          <div class="header-controls">
+            <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">ES</button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+              <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+              </svg>
+            </button>
+          </div>
         </div>
-        <p class="subtitle">Convert hymn numbers between editions</p>
       </header>
 
       <div class="search-sections">
         <div class="search-section">
-          <label for="edition1-input" class="label">Search in Edition 1</label>
+          <label for="edition1-input" class="label" data-i18n="labelEdition1">Search in Edition 1</label>
           <div class="input-wrapper">
             <input
               type="text"
@@ -42,6 +45,7 @@
               id="edition1-input"
               class="input"
               placeholder="Enter hymn number"
+              data-i18n-placeholder="placeholder"
               pattern="[0-9]*"
             >
             <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
@@ -49,7 +53,7 @@
         </div>
 
         <div class="search-section">
-          <label for="edition2-input" class="label">Search in Edition 2</label>
+          <label for="edition2-input" class="label" data-i18n="labelEdition2">Search in Edition 2</label>
           <div class="input-wrapper">
             <input
               type="text"
@@ -57,6 +61,7 @@
               id="edition2-input"
               class="input"
               placeholder="Enter hymn number"
+              data-i18n-placeholder="placeholder"
               pattern="[0-9]*"
             >
             <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
@@ -66,26 +71,26 @@
 
       <div id="result" class="result-card hidden">
         <div class="result-row">
-          <span class="result-label">Edition 1:</span>
+          <span class="result-label" data-i18n="resultEdition1">Edition 1:</span>
           <span id="result-edition1" class="result-value">--</span>
         </div>
         <div class="result-row">
-          <span class="result-label">Edition 2:</span>
+          <span class="result-label" data-i18n="resultEdition2">Edition 2:</span>
           <span id="result-edition2" class="result-value">--</span>
         </div>
         <div class="result-row">
-          <span class="result-label">Sheetmusic:</span>
+          <span class="result-label" data-i18n="sheetmusic">Sheetmusic:</span>
           <span id="sheetmusic" class="result-value">--</span>
         </div>
       </div>
 
-      <div id="not-found" class="not-found hidden">
+      <div id="not-found" class="not-found hidden" data-i18n="notFound">
         Hymn not found
       </div>
     </div>
 
     <footer class="footer">
-      <p>HymnVS &mdash; Hymn Number Converter</p>
+      <p data-i18n="footer">HymnVS &mdash; Hymn Number Converter</p>
     </footer>
   </div>
 
