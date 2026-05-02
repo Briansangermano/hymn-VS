@@ -17,7 +17,21 @@ const translations = {
     labelAddSheetmusic: 'Partitura',
     btnAdd: 'Agregar',
     successAdd: 'Himno agregado correctamente',
-    errorAdd: 'Error al agregar himno'
+    errorAdd: 'Error al agregar himno',
+    loadingApp: 'Cargando App',
+    loginTitle: 'Iniciar Sesión',
+    loginUser: 'Usuario',
+    loginPassword: 'Contraseña',
+    loginBtn: 'Entrar',
+    cancelBtn: 'Cancelar',
+    logoutTitle: '¿Cerrar sesión?',
+    logoutConfirm: '¿Estás seguro que quieres cerrar sesión?',
+    logoutConfirmBtn: 'Sí, cerrar sesión',
+    welcome: 'Bienvenido',
+    sessionClosed: 'Sesión cerrada',
+    addEdition1Placeholder: 'Ingresa nuevo número de edición 1',
+    addEdition2Placeholder: 'Ingresa nuevo número de edición 2',
+    addSheetmusicPlaceholder: 'Opcional'
   },
   en: {
     appName: 'HymnVS',
@@ -37,7 +51,21 @@ const translations = {
     labelAddSheetmusic: 'Sheetmusic',
     btnAdd: 'Add',
     successAdd: 'Hymn added successfully',
-    errorAdd: 'Error adding hymn'
+    errorAdd: 'Error adding hymn',
+    loadingApp: 'Loading App',
+    loginTitle: 'Login',
+    loginUser: 'User',
+    loginPassword: 'Password',
+    loginBtn: 'Login',
+    cancelBtn: 'Cancel',
+    logoutTitle: 'Logout?',
+    logoutConfirm: 'Are you sure you want to logout?',
+    logoutConfirmBtn: 'Yes, logout',
+    welcome: 'Welcome',
+    sessionClosed: 'Session closed',
+    addEdition1Placeholder: 'Enter new edition 1 number',
+    addEdition2Placeholder: 'Enter new edition 2 number',
+    addSheetmusicPlaceholder: 'Optional'
   }
 };
 
@@ -338,7 +366,7 @@ confirmLogoutBtn.addEventListener('click', () => {
   localStorage.removeItem('isLoggedIn');
   localStorage.removeItem('currentUser');
   logoutModal.classList.add('hidden');
-  showToast('Sesión cerrada');
+  showToast(translations[currentLang].sessionClosed);
   updateTabsVisibility();
   updateLoginButton();
 });
@@ -360,7 +388,7 @@ loginForm.addEventListener('submit', (e) => {
     localStorage.setItem('currentUser', currentUser);
     loginModal.classList.add('hidden');
     loginForm.reset();
-    showToast('Bienvenido ' + currentUser);
+    showToast(translations[currentLang].welcome + ' ' + currentUser);
     updateTabsVisibility();
     updateLoginButton();
   } else {

@@ -15,43 +15,46 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
 </head>
 <body>
+  <div class="header-container"> 
+    <h1 class="title">
+      <svg class="title-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      <span data-i18n="appName">HymnVS</span>
+    </h1>
+    <div class="header-controls">
+      <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">ES</button>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+      <button id="login-toggle" class="lang-toggle" aria-label="Login">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <div id="user-display" class="user-display-top"></div>
   <div class="container">
     <div id="initial-loader" class="initial-loader">
       <svg class="loader-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
       </svg>
-      <p>Cargando App</p>
+      <p data-i18n="loadingApp">Cargando App</p>
     </div>
     <div class="card">
-<header class="header">
+      <header class="header">
         <div class="header-top">
           <div class="title-wrapper">
-            <h1 class="title">
-              <svg class="title-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-              </svg>
-              <span data-i18n="appName">HymnVS</span>
-            </h1>
             <p id="user-display" class="user-display"></p>
             <p class="subtitle" data-i18n="subtitle">Convert hymn numbers between editions</p>
-          </div>
-          <div class="header-controls">
-            <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">ES</button>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-              <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-              </svg>
-              <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-              </svg>
-            </button>
-            <button id="login-toggle" class="lang-toggle" aria-label="Login">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
-            </button>
           </div>
         </div>
       </header>
@@ -120,49 +123,49 @@
         <form id="add-form" class="add-form">
           <div class="search-section">
             <label for="add-edition1" class="label" data-i18n="labelAddEdition1">Edition 1</label>
-            <input type="number" id="add-edition1" class="input" required>
+            <input type="number" id="add-edition1" class="input" data-i18n-placeholder="addEdition1Placeholder" placeholder="1" required>
           </div>
           <div class="search-section">
             <label for="add-edition2" class="label" data-i18n="labelAddEdition2">Edition 2</label>
-            <input type="number" id="add-edition2" class="input" required>
+            <input type="number" id="add-edition2" class="input" data-i18n-placeholder="addEdition2Placeholder" placeholder="1" required>
           </div>
           <div class="search-section">
             <label for="add-sheetmusic" class="label" data-i18n="labelAddSheetmusic">Sheetmusic</label>
-            <input type="text" id="add-sheetmusic" class="input">
+            <input type="text" id="add-sheetmusic" class="input" data-i18n-placeholder="addSheetmusicPlaceholder" placeholder="Optional">
           </div>
           <button type="submit" class="submit-btn" data-i18n="btnAdd">Agregar</button>
         </form>
       </div>
 
-<div id="toast" class="toast hidden"></div>
+      <div id="toast" class="toast hidden"></div>
 
-    <div id="login-modal" class="modal hidden">
-      <div class="modal-content">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form">
-          <div class="search-section">
-            <label for="login-user">Usuario</label>
-            <input type="text" id="login-user" class="input" required>
-          </div>
-          <div class="search-section">
-            <label for="login-password">Contraseña</label>
-            <input type="password" id="login-password" class="input" required>
-          </div>
-          <button type="submit" class="submit-btn">Entrar</button>
-          <button type="button" id="close-login" class="text-btn">Cancelar</button>
-        </form>
+      <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2 data-i18n="loginTitle">Iniciar Sesión</h2>
+          <form id="login-form">
+            <div class="search-section">
+              <label for="login-user" data-i18n="loginUser">Usuario</label>
+              <input type="text" id="login-user" class="input" required>
+            </div>
+            <div class="search-section">
+              <label for="login-password" data-i18n="loginPassword">Contraseña</label>
+              <input type="password" id="login-password" class="input" required>
+            </div>
+            <button type="submit" class="submit-btn" data-i18n="loginBtn">Entrar</button>
+            <button type="button" id="close-login" class="text-btn" data-i18n="cancelBtn">Cancelar</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="logout-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2 data-i18n="logoutTitle">¿Cerrar sesión?</h2>
+          <p data-i18n="logoutConfirm">¿Estás seguro que quieres cerrar sesión?</p>
+          <button id="confirm-logout" class="submit-btn" data-i18n="logoutConfirmBtn">Sí, cerrar sesión</button>
+          <button type="button" id="close-logout" class="text-btn" data-i18n="cancelBtn">Cancelar</button>
+        </div>
       </div>
     </div>
-
-    <div id="logout-modal" class="modal hidden">
-      <div class="modal-content">
-        <h2>¿Cerrar sesión?</h2>
-        <p>¿Estás seguro que quieres cerrar sesión?</p>
-        <button id="confirm-logout" class="submit-btn">Sí, cerrar sesión</button>
-        <button type="button" id="close-logout" class="text-btn">Cancelar</button>
-      </div>
-    </div>
-  </div>
 
     <footer class="footer">
       <p data-i18n="footer">HymnVS &mdash; Hymn Number Converter</p>
