@@ -32,11 +32,12 @@
           <label for="edition1-input" class="label">Search in Edition 1</label>
           <div class="input-wrapper">
             <input
-              type="number"
+              type="text"
+              inputmode="numeric"
               id="edition1-input"
               class="input"
               placeholder="Enter hymn number"
-              min="1"
+              pattern="[0-9]*"
             >
             <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
           </div>
@@ -46,11 +47,12 @@
           <label for="edition2-input" class="label">Search in Edition 2</label>
           <div class="input-wrapper">
             <input
-              type="number"
+              type="text"
+              inputmode="numeric"
               id="edition2-input"
               class="input"
               placeholder="Enter hymn number"
-              min="1"
+              pattern="[0-9]*"
             >
             <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
           </div>
@@ -65,6 +67,10 @@
         <div class="result-row">
           <span class="result-label">Edition 2:</span>
           <span id="result-edition2" class="result-value">--</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Sheetmusic:</span>
+          <span id="sheetmusic" class="result-value">--</span>
         </div>
       </div>
 

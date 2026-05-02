@@ -284,8 +284,7 @@ body {
 
 @media (max-width: 480px), (max-device-width: 480px) {
   .card {
-    padding: 1.25rem;
-    border-radius: 0;
+    padding: 2.25rem 1.25rem;
   }
 
   .title {
