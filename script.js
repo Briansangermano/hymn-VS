@@ -16,7 +16,8 @@ const translations = {
     labelAddEdition2: 'Edición 2',
     labelAddSheetmusic: 'Partitura',
     btnAdd: 'Agregar',
-    successAdd: 'Himno agregado correctamente'
+    successAdd: 'Himno agregado correctamente',
+    errorAdd: 'Error al agregar himno'
   },
   en: {
     appName: 'HymnVS',
@@ -35,9 +36,23 @@ const translations = {
     labelAddEdition2: 'Edition 2',
     labelAddSheetmusic: 'Sheetmusic',
     btnAdd: 'Add',
-    successAdd: 'Hymn added successfully'
+    successAdd: 'Hymn added successfully',
+    errorAdd: 'Error adding hymn'
   }
 };
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDWGSM12kNd9gXTQ-xBdvLZNCAcLjvzt5E",
+  authDomain: "hymnvs-a5893.firebaseapp.com",
+  projectId: "hymnvs-a5893",
+  storageBucket: "hymnvs-a5893.firebasestorage.app",
+  messagingSenderId: "1079696849240",
+  appId: "1:1079696849240:web:5e217b9454b370697e8d2d",
+  measurementId: "G-EGKEGT3ERW"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 let currentLang = 'es';
 
@@ -744,7 +759,9 @@ tabBtns.forEach(btn => {
 });
 
 const addForm = document.getElementById('add-form');
-addForm.addEventListener('submit', (e) => {
+const submitBtn = addForm.querySelector('.submit-btn');
+
+addForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const edition1 = parseInt(document.getElementById('add-edition1').value, 10);
@@ -757,10 +774,19 @@ addForm.addEventListener('submit', (e) => {
     sheetmusic
   };
   
-  hymns.push(newHymn);
-  console.log('Nuevo himno agregado:', newHymn);
-  console.log('Total de himnos:', hymns.length);
+  submitBtn.disabled = true;
+  submitBtn.textContent = '...';
   
-  addForm.reset();
-  alert(translations[currentLang].successAdd);
+  try {
+    await db.collection('hymns').add(newHymn);
+    console.log('Nuevo himno agregado:', newHymn);
+    addForm.reset();
+    alert(translations[currentLang].successAdd);
+  } catch (error) {
+    console.error('Error:', error);
+    alert(translations[currentLang].errorAdd);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = translations[currentLang].btnAdd;
+  }
 });
