@@ -58,6 +58,9 @@ let hymns = [];
 let hymnsLoaded = false;
 
 async function loadHymns() {
+  const loader = document.getElementById('initial-loader');
+  loader.classList.remove('hidden');
+  
   try {
     const snapshot = await db.collection('hymns').get();
     hymns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -66,6 +69,8 @@ async function loadHymns() {
     console.log('Himnos cargados desde Firebase:', hymns.length);
   } catch (error) {
     console.error('Error cargando himnos:', error);
+  } finally {
+    loader.classList.add('hidden');
   }
 }
 
