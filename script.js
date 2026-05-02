@@ -289,7 +289,6 @@ edition2Input.addEventListener('paste', (e) => {
 });
 
 loadHymns();
-
 initTheme();
 initLang();
 updateTabsVisibility();
@@ -432,7 +431,7 @@ addForm.addEventListener('submit', async (e) => {
   addInputs.forEach(input => input.disabled = true);
   
   try {
-    await db.collection('hymns').add(newHymn);
+    await db.collection('hymns').doc(`new_hymn_${newHymn.edition1}`).set(newHymn)
     console.log('Nuevo himno agregado:', newHymn);
     addForm.reset();
     
