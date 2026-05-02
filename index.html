@@ -35,6 +35,12 @@
             <p class="subtitle" data-i18n="subtitle">Convert hymn numbers between editions</p>
           </div>
           <div class="header-controls">
+            <button id="login-toggle" class="lang-toggle" aria-label="Login">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </button>
             <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">ES</button>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
               <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,8 +132,26 @@
         </form>
       </div>
 
-      <div id="toast" class="toast hidden"></div>
+<div id="toast" class="toast hidden"></div>
+
+    <div id="login-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <div class="search-section">
+            <label for="login-user">Usuario</label>
+            <input type="text" id="login-user" class="input" required>
+          </div>
+          <div class="search-section">
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" class="input" required>
+          </div>
+          <button type="submit" class="submit-btn">Entrar</button>
+          <button type="button" id="close-login" class="text-btn">Cancelar</button>
+        </form>
+      </div>
     </div>
+  </div>
 
     <footer class="footer">
       <p data-i18n="footer">HymnVS &mdash; Hymn Number Converter</p>

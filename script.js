@@ -56,6 +56,22 @@ const db = firebase.firestore();
 
 let hymns = [];
 let hymnsLoaded = false;
+let isLoggedIn = false;
+
+const USERS = [
+  { user: 'admin', password: '1234' }
+];
+
+function checkLogin(user, password) {
+  return USERS.some(u => u.user === user && u.password === password);
+}
+
+function updateTabsVisibility() {
+  const tabAdd = document.querySelector('[data-tab="add"]');
+  if (tabAdd) {
+    tabAdd.style.display = isLoggedIn ? '' : 'none';
+  }
+}
 
 async function loadHymns() {
   const loader = document.getElementById('initial-loader');
@@ -260,6 +276,45 @@ loadHymns();
 
 initTheme();
 initLang();
+updateTabsVisibility();
+
+// Login
+const loginToggle = document.getElementById('login-toggle');
+const loginModal = document.getElementById('login-modal');
+const loginForm = document.getElementById('login-form');
+const closeLoginBtn = document.getElementById('close-login');
+
+loginToggle.addEventListener('click', () => {
+  loginModal.classList.remove('hidden');
+});
+
+closeLoginBtn.addEventListener('click', () => {
+  loginModal.classList.add('hidden');
+  loginForm.reset();
+});
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const user = document.getElementById('login-user').value;
+  const password = document.getElementById('login-password').value;
+  
+  if (checkLogin(user, password)) {
+    isLoggedIn = true;
+    localStorage.setItem('isLoggedIn', 'true');
+    loginModal.classList.add('hidden');
+    loginForm.reset();
+    showToast('Bienvenido ' + user);
+    updateTabsVisibility();
+  } else {
+    showToast('Usuario o contraseña incorrectos', true);
+  }
+});
+
+// Check if already logged in
+if (localStorage.getItem('isLoggedIn') === 'true') {
+  isLoggedIn = true;
+  updateTabsVisibility();
+}
 
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
