@@ -278,7 +278,6 @@ tabBtns.forEach(btn => {
 
 const addForm = document.getElementById('add-form');
 const submitBtn = addForm.querySelector('.submit-btn');
-const loader = document.getElementById('loader');
 const addInputs = addForm.querySelectorAll('.input');
 const toast = document.getElementById('toast');
 
@@ -304,8 +303,9 @@ addForm.addEventListener('submit', async (e) => {
     sheetmusic
   };
   
-  loader.classList.remove('hidden');
+  const originalBtnText = submitBtn.textContent;
   submitBtn.disabled = true;
+  submitBtn.textContent = '...';
   addInputs.forEach(input => input.disabled = true);
   
   try {
@@ -317,13 +317,15 @@ addForm.addEventListener('submit', async (e) => {
     
     await loadHymns();
     
-    showToast(translations[currentLang].successAdd);
+    setTimeout(() => {
+      showToast(translations[currentLang].successAdd);
+    }, 100);
   } catch (error) {
     console.error('Error:', error);
     showToast(translations[currentLang].errorAdd, true);
   } finally {
-    loader.classList.add('hidden');
     submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
     addInputs.forEach(input => input.disabled = false);
   }
 });
