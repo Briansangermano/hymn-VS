@@ -42,57 +42,82 @@
         </div>
       </header>
 
-      <div class="search-sections">
-        <div class="search-section">
-          <label for="edition1-input" class="label" data-i18n="labelEdition1">Search in Edition 1</label>
-          <div class="input-wrapper">
-            <input
-              type="text"
-              inputmode="numeric"
-              id="edition1-input"
-              class="input"
-              placeholder="Enter hymn number"
-              data-i18n-placeholder="placeholder"
-              pattern="[0-9]*"
-            >
-            <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="convert" data-i18n="tabConvert">Convert</button>
+        <button class="tab-btn" data-tab="add" data-i18n="tabAdd">Agregar</button>
+      </div>
+
+      <div id="tab-convert" class="tab-content">
+        <div class="search-sections">
+          <div class="search-section">
+            <label for="edition1-input" class="label" data-i18n="labelEdition1">Search in Edition 1</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                inputmode="numeric"
+                id="edition1-input"
+                class="input"
+                placeholder="Enter hymn number"
+                data-i18n-placeholder="placeholder"
+                pattern="[0-9]*"
+              >
+              <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
+            </div>
+          </div>
+
+          <div class="search-section">
+            <label for="edition2-input" class="label" data-i18n="labelEdition2">Search in Edition 2</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                inputmode="numeric"
+                id="edition2-input"
+                class="input"
+                placeholder="Enter hymn number"
+                data-i18n-placeholder="placeholder"
+                pattern="[0-9]*"
+              >
+              <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
+            </div>
           </div>
         </div>
 
-        <div class="search-section">
-          <label for="edition2-input" class="label" data-i18n="labelEdition2">Search in Edition 2</label>
-          <div class="input-wrapper">
-            <input
-              type="text"
-              inputmode="numeric"
-              id="edition2-input"
-              class="input"
-              placeholder="Enter hymn number"
-              data-i18n-placeholder="placeholder"
-              pattern="[0-9]*"
-            >
-            <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
+        <div id="result" class="result-card hidden">
+          <div class="result-row">
+            <span class="result-label" data-i18n="resultEdition1">Edition 1:</span>
+            <span id="result-edition1" class="result-value">--</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-i18n="resultEdition2">Edition 2:</span>
+            <span id="result-edition2" class="result-value">--</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-i18n="sheetmusic">Sheetmusic:</span>
+            <span id="sheetmusic" class="result-value">--</span>
           </div>
         </div>
-      </div>
 
-      <div id="result" class="result-card hidden">
-        <div class="result-row">
-          <span class="result-label" data-i18n="resultEdition1">Edition 1:</span>
-          <span id="result-edition1" class="result-value">--</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label" data-i18n="resultEdition2">Edition 2:</span>
-          <span id="result-edition2" class="result-value">--</span>
-        </div>
-        <div class="result-row">
-          <span class="result-label" data-i18n="sheetmusic">Sheetmusic:</span>
-          <span id="sheetmusic" class="result-value">--</span>
+        <div id="not-found" class="not-found hidden" data-i18n="notFound">
+          Hymn not found
         </div>
       </div>
 
-      <div id="not-found" class="not-found hidden" data-i18n="notFound">
-        Hymn not found
+      <div id="tab-add" class="tab-content hidden">
+        <form id="add-form" class="add-form">
+          <div class="search-section">
+            <label for="add-edition1" class="label" data-i18n="labelAddEdition1">Edition 1</label>
+            <input type="number" id="add-edition1" class="input" required>
+          </div>
+          <div class="search-section">
+            <label for="add-edition2" class="label" data-i18n="labelAddEdition2">Edition 2</label>
+            <input type="number" id="add-edition2" class="input" required>
+          </div>
+          <div class="search-section">
+            <label for="add-sheetmusic" class="label" data-i18n="labelAddSheetmusic">Sheetmusic</label>
+            <input type="text" id="add-sheetmusic" class="input">
+          </div>
+          <button type="submit" class="submit-btn" data-i18n="btnAdd">Agregar</button>
+        </form>
       </div>
     </div>
 

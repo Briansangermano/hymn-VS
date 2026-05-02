@@ -9,7 +9,14 @@ const translations = {
     resultEdition2: 'Edición 2:',
     sheetmusic: 'Partitura:',
     notFound: 'Himno no encontrado',
-    footer: 'HymnVS — Convertidor de Himnos'
+    footer: 'HymnVS — Convertidor de Himnos',
+    tabConvert: 'Convertir',
+    tabAdd: 'Agregar',
+    labelAddEdition1: 'Edición 1',
+    labelAddEdition2: 'Edición 2',
+    labelAddSheetmusic: 'Partitura',
+    btnAdd: 'Agregar',
+    successAdd: 'Himno agregado correctamente'
   },
   en: {
     appName: 'HymnVS',
@@ -21,7 +28,14 @@ const translations = {
     resultEdition2: 'Edition 2:',
     sheetmusic: 'Sheetmusic:',
     notFound: 'Hymn not found',
-    footer: 'HymnVS — Hymn Number Converter'
+    footer: 'HymnVS — Hymn Number Converter',
+    tabConvert: 'Convert',
+    tabAdd: 'Add',
+    labelAddEdition1: 'Edition 1',
+    labelAddEdition2: 'Edition 2',
+    labelAddSheetmusic: 'Sheetmusic',
+    btnAdd: 'Add',
+    successAdd: 'Hymn added successfully'
   }
 };
 
@@ -708,3 +722,45 @@ edition2Input.addEventListener('paste', (e) => {
 
 initTheme();
 initLang();
+
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    tabContents.forEach(content => {
+      if (content.id === `tab-${tab}`) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    });
+  });
+});
+
+const addForm = document.getElementById('add-form');
+addForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const edition1 = parseInt(document.getElementById('add-edition1').value, 10);
+  const edition2 = parseInt(document.getElementById('add-edition2').value, 10);
+  const sheetmusic = document.getElementById('add-sheetmusic').value || null;
+  
+  const newHymn = {
+    edition1,
+    edition2,
+    sheetmusic
+  };
+  
+  hymns.push(newHymn);
+  console.log('Nuevo himno agregado:', newHymn);
+  console.log('Total de himnos:', hymns.length);
+  
+  addForm.reset();
+  alert(translations[currentLang].successAdd);
+});
