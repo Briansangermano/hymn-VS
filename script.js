@@ -57,19 +57,35 @@ const db = firebase.firestore();
 let hymns = [];
 let hymnsLoaded = false;
 let isLoggedIn = false;
+let currentUser = '';
 
 const USERS = [
   { user: 'admin', password: '1234' }
 ];
 
 function checkLogin(user, password) {
-  return USERS.some(u => u.user === user && u.password === password);
+  return USERS.find(u => u.user === user && u.password === password);
 }
 
 function updateTabsVisibility() {
   const tabAdd = document.querySelector('[data-tab="add"]');
-  if (tabAdd) {
-    tabAdd.style.display = isLoggedIn ? '' : 'none';
+  const tabsContainer = document.querySelector('.tabs');
+  const userDisplay = document.getElementById('user-display');
+  const tabConvertContent = document.getElementById('tab-convert');
+  const tabAddContent = document.getElementById('tab-add');
+  
+  if (isLoggedIn) {
+    if (tabAdd) tabAdd.style.display = '';
+    if (tabsContainer) tabsContainer.style.display = '';
+  } else {
+    if (tabAdd) tabAdd.style.display = 'none';
+    if (tabsContainer) tabsContainer.style.display = 'none';
+    if (tabConvertContent) tabConvertContent.classList.remove('hidden');
+    if (tabAddContent) tabAddContent.classList.add('hidden');
+  }
+  
+  if (userDisplay) {
+    userDisplay.textContent = isLoggedIn ? currentUser : '';
   }
 }
 
@@ -283,9 +299,29 @@ const loginToggle = document.getElementById('login-toggle');
 const loginModal = document.getElementById('login-modal');
 const loginForm = document.getElementById('login-form');
 const closeLoginBtn = document.getElementById('close-login');
+const loginIcon = loginToggle.querySelector('svg');
+
+function updateLoginButton() {
+  console.log('updateLoginButton called, isLoggedIn:', isLoggedIn);
+  const svg = loginToggle.querySelector('svg');
+  console.log('SVG found:', svg);
+  console.log('SVG innerHTML before:', svg.innerHTML);
+  if (isLoggedIn) {
+    svg.innerHTML = '<path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>';
+  } else {
+    svg.innerHTML = '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>';
+  }
+  loginToggle.setAttribute('aria-label', isLoggedIn ? 'Logout' : 'Login');
+  loginToggle.title = isLoggedIn ? 'Cerrar sesión' : 'Iniciar sesión';
+  console.log('SVG innerHTML after:', svg.innerHTML);
+}
 
 loginToggle.addEventListener('click', () => {
-  loginModal.classList.remove('hidden');
+  if (isLoggedIn) {
+    document.getElementById('logout-modal').classList.remove('hidden');
+  } else {
+    loginModal.classList.remove('hidden');
+  }
 });
 
 closeLoginBtn.addEventListener('click', () => {
@@ -293,18 +329,41 @@ closeLoginBtn.addEventListener('click', () => {
   loginForm.reset();
 });
 
+const logoutModal = document.getElementById('logout-modal');
+const confirmLogoutBtn = document.getElementById('confirm-logout');
+const closeLogoutBtn = document.getElementById('close-logout');
+
+confirmLogoutBtn.addEventListener('click', () => {
+  isLoggedIn = false;
+  currentUser = '';
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('currentUser');
+  logoutModal.classList.add('hidden');
+  showToast('Sesión cerrada');
+  updateTabsVisibility();
+  updateLoginButton();
+});
+
+closeLogoutBtn.addEventListener('click', () => {
+  logoutModal.classList.add('hidden');
+});
+
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const user = document.getElementById('login-user').value;
   const password = document.getElementById('login-password').value;
+  const validUser = checkLogin(user, password);
   
-  if (checkLogin(user, password)) {
+  if (validUser) {
     isLoggedIn = true;
+    currentUser = validUser.user;
     localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUser', currentUser);
     loginModal.classList.add('hidden');
     loginForm.reset();
-    showToast('Bienvenido ' + user);
+    showToast('Bienvenido ' + currentUser);
     updateTabsVisibility();
+    updateLoginButton();
   } else {
     showToast('Usuario o contraseña incorrectos', true);
   }
@@ -313,7 +372,9 @@ loginForm.addEventListener('submit', (e) => {
 // Check if already logged in
 if (localStorage.getItem('isLoggedIn') === 'true') {
   isLoggedIn = true;
+  currentUser = localStorage.getItem('currentUser') || '';
   updateTabsVisibility();
+  updateLoginButton();
 }
 
 const tabBtns = document.querySelectorAll('.tab-btn');
@@ -321,6 +382,8 @@ const tabContents = document.querySelectorAll('.tab-content');
 
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
+    if (!isLoggedIn) return;
+    
     const tab = btn.dataset.tab;
     
     tabBtns.forEach(b => b.classList.remove('active'));
@@ -373,7 +436,9 @@ addForm.addEventListener('submit', async (e) => {
     console.log('Nuevo himno agregado:', newHymn);
     addForm.reset();
     
-    document.querySelector('[data-tab="convert"]').click();
+    if (isLoggedIn) {
+      document.querySelector('[data-tab="convert"]').click();
+    }
     
     await loadHymns();
     
