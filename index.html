@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HymnVS - Convert Hymn Numbers</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header class="header">
+        <div class="header-top">
+          <h1 class="title">HymnVS</h1>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg id="sun-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg id="moon-icon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          </button>
+        </div>
+        <p class="subtitle">Convert hymn numbers between editions</p>
+      </header>
+
+      <div class="search-sections">
+        <div class="search-section">
+          <label for="edition1-input" class="label">Search in Edition 1</label>
+          <div class="input-wrapper">
+            <input
+              type="number"
+              id="edition1-input"
+              class="input"
+              placeholder="Enter hymn number"
+              min="1"
+            >
+            <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
+          </div>
+        </div>
+
+        <div class="search-section">
+          <label for="edition2-input" class="label">Search in Edition 2</label>
+          <div class="input-wrapper">
+            <input
+              type="number"
+              id="edition2-input"
+              class="input"
+              placeholder="Enter hymn number"
+              min="1"
+            >
+            <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="result" class="result-card hidden">
+        <div class="result-row">
+          <span class="result-label">Edition 1:</span>
+          <span id="result-edition1" class="result-value">--</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Edition 2:</span>
+          <span id="result-edition2" class="result-value">--</span>
+        </div>
+      </div>
+
+      <div id="not-found" class="not-found hidden">
+        Hymn not found
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>HymnVS &mdash; Hymn Number Converter</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
