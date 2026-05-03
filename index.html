@@ -42,13 +42,23 @@
   </div>
 
   <div id="user-display" class="user-display-top"></div>
-  <div class="container">
-    <div id="initial-loader" class="initial-loader">
-      <svg class="loader-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-      </svg>
-      <p data-i18n="loadingApp">Cargando App</p>
+
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-logo">
+      <div class="splash-icon-wrapper">
+        <svg class="splash-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+      </div>
+      <span class="splash-title">HymnVS</span>
     </div>
+    <p class="splash-subtitle" data-i18n="loadingApp">Cargando App</p>
+    <div class="splash-loader">
+      <div class="splash-loader-bar"></div>
+    </div>
+  </div>
+
+  <div class="container">
     <div class="card">
       <header class="header">
         <div class="header-top">
@@ -67,23 +77,7 @@
       <div id="tab-convert" class="tab-content">
         <div class="search-sections">
           <div class="search-section">
-            <label for="edition1-input" class="label" data-i18n="labelEdition1">Search in Edition 1</label>
-            <div class="input-wrapper">
-              <input
-                type="text"
-                inputmode="numeric"
-                id="edition1-input"
-                class="input"
-                placeholder="Enter hymn number"
-                data-i18n-placeholder="placeholder"
-                pattern="[0-9]*"
-              >
-              <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
-            </div>
-          </div>
-
-          <div class="search-section">
-            <label for="edition2-input" class="label" data-i18n="labelEdition2">Search in Edition 2</label>
+            <label for="edition2-input" class="label" data-i18n="labelEdition2">Edition 2</label>
             <div class="input-wrapper">
               <input
                 type="text"
@@ -95,6 +89,22 @@
                 pattern="[0-9]*"
               >
               <button type="button" id="clear-edition2" class="clear-btn" aria-label="Clear">&times;</button>
+            </div>
+          </div>
+
+          <div class="search-section">
+            <label for="edition1-input" class="label" data-i18n="labelEdition1">Edition 1</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                inputmode="numeric"
+                id="edition1-input"
+                class="input"
+                placeholder="Enter hymn number"
+                data-i18n-placeholder="placeholder"
+                pattern="[0-9]*"
+              >
+              <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
             </div>
           </div>
         </div>
@@ -168,7 +178,7 @@
     </div>
   </div>
   <footer class="footer">
-    <p data-i18n="footer">HymnVS &mdash; Hymn Number Converter</p>
+    <p>HymnVS - Hymn Number Converter v1.0.0</p>
   </footer>
 
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>

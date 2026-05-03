@@ -2,14 +2,13 @@ const translations = {
   es: {
     appName: 'HymnVS',
     subtitle: 'Convierte números de himnos entre ediciones',
-    labelEdition1: 'Buscar en Edición 1',
-    labelEdition2: 'Buscar en Edición 2',
+    labelEdition1: 'Edición 1',
+    labelEdition2: 'Edición 2',
     placeholder: 'Ingresa número de himno',
     resultEdition1: 'Edisión 1:',
     resultEdition2: 'Edición 2:',
     sheetmusic: 'Partitura:',
     notFound: 'Himno no encontrado',
-    footer: 'HymnVS — Convertidor de Himnos',
     tabConvert: 'Convertir',
     tabAdd: 'Agregar',
     labelAddEdition1: 'Edición 1',
@@ -36,14 +35,13 @@ const translations = {
   en: {
     appName: 'HymnVS',
     subtitle: 'Convert hymn numbers between editions',
-    labelEdition1: 'Search in Edition 1',
-    labelEdition2: 'Search in Edition 2',
+    labelEdition1: 'Edition 1',
+    labelEdition2: 'Edition 2',
     placeholder: 'Enter hymn number',
     resultEdition1: 'Edition 1:',
     resultEdition2: 'Edition 2:',
     sheetmusic: 'Sheetmusic:',
     notFound: 'Hymn not found',
-    footer: 'HymnVS — Hymn Number Converter',
     tabConvert: 'Convert',
     tabAdd: 'Add',
     labelAddEdition1: 'Edition 1',
@@ -88,11 +86,11 @@ let isLoggedIn = false;
 let currentUser = '';
 
 const USERS = [
-  { user: 'admin', password: '1234' }
+  { user: 'Admin', password: '7777' }
 ];
 
 function checkLogin(user, password) {
-  return USERS.find(u => u.user === user && u.password === password);
+  return USERS.find(u => u.user.toLocaleLowerCase() === user.toLocaleLowerCase() && u.password === password);
 }
 
 function updateTabsVisibility() {
@@ -119,7 +117,9 @@ function updateTabsVisibility() {
 
 async function loadHymns() {
   const loader = document.getElementById('initial-loader');
-  loader.classList.remove('hidden');
+  const splash = document.getElementById('splash-screen');
+  
+  if (loader) loader.classList.remove('hidden');
   
   try {
     const snapshot = await db.collection('hymns').get();
@@ -130,7 +130,11 @@ async function loadHymns() {
   } catch (error) {
     console.error('Error cargando himnos:', error);
   } finally {
-    loader.classList.add('hidden');
+    if (loader) loader.classList.add('hidden');
+    if (splash) {
+      splash.classList.add('fade-out');
+      setTimeout(() => splash.remove(), 500);
+    }
   }
 }
 
