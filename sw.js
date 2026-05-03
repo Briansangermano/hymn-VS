@@ -1,4 +1,5 @@
-const CACHE_NAME = 'hymnvs-v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
+const CACHE_NAME = `hymnvs-${CACHE_VERSION}`;
 const urlsToCache = [
   '/',
   '/index.html',
@@ -24,6 +25,12 @@ self.addEventListener('activate', event => {
       );
     }).then(() => self.clients.claim())
   );
+});
+
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'getVersion') {
+    event.ports[0].postMessage({ version: CACHE_VERSION });
+  }
 });
 
 self.addEventListener('fetch', event => {

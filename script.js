@@ -490,4 +490,17 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     window.location.reload(true);
   });
+
+  navigator.serviceWorker.register('sw.js').then(registration => {
+    const channel = new MessageChannel();
+    channel.port1.onmessage = event => {
+      if (event.data.version) {
+        const footerVersion = document.getElementById('footer-version');
+        if (footerVersion) {
+          footerVersion.textContent = `HymnVS - Hymn Number Converter ${event.data.version}`;
+        }
+      }
+    };
+    registration.active.postMessage({ type: 'getVersion' }, [channel.port2]);
+  });
 }
