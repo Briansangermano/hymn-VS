@@ -6,7 +6,7 @@ const translations = {
     labelEdition2: 'Edición 2',
     labelEdition3: 'Inglés',
     placeholder: 'Ingresa número de himno',
-    resultEdition1: 'Edisión 1:',
+    resultEdition1: 'Edición 1:',
     resultEdition2: 'Edición 2:',
     resultEdition3: 'Inglés:',
     sheetmusic: 'Partitura:',
@@ -246,10 +246,10 @@ function renderResult(result) {
   clearResult();
   
   if (result) {
-    resultEdition1.textContent = result.edition1;
-    resultEdition2.textContent = result.edition2;
+    resultEdition1.textContent = result.edition1 || '--';
+    resultEdition2.textContent = result.edition2 || '--';
     resultEdition3.textContent = result.english || '--';
-    sheetmusicSpan.textContent = result.sheetmusic || '--';
+    sheetmusicSpan.textContent = result.sheetmusic ? (/^\d+$/.test(result.sheetmusic) ? parseInt(result.sheetmusic, 10) : result.sheetmusic) : '--';
     resultCard.classList.remove('hidden');
   } else {
     notFoundCard.classList.remove('hidden');
