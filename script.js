@@ -4,15 +4,18 @@ const translations = {
     subtitle: 'Convierte números de himnos entre ediciones',
     labelEdition1: 'Edición 1',
     labelEdition2: 'Edición 2',
+    labelEdition3: 'Inglés',
     placeholder: 'Ingresa número de himno',
     resultEdition1: 'Edisión 1:',
     resultEdition2: 'Edición 2:',
+    resultEdition3: 'Inglés:',
     sheetmusic: 'Partitura:',
     notFound: 'Himno no encontrado',
     tabConvert: 'Convertir',
     tabAdd: 'Agregar',
     labelAddEdition1: 'Edición 1',
     labelAddEdition2: 'Edición 2',
+    labelAddEdition3: 'Inglés',
     labelAddSheetmusic: 'Partitura',
     btnAdd: 'Agregar',
     successAdd: 'Himno agregado correctamente',
@@ -30,6 +33,7 @@ const translations = {
     sessionClosed: 'Sesión cerrada',
     addEdition1Placeholder: 'Ingresa nuevo número de edición 1',
     addEdition2Placeholder: 'Ingresa nuevo número de edición 2',
+    addEdition3Placeholder: 'Ingresa nuevo número de inglés',
     addSheetmusicPlaceholder: 'Opcional'
   },
   en: {
@@ -37,15 +41,18 @@ const translations = {
     subtitle: 'Convert hymn numbers between editions',
     labelEdition1: 'Edition 1',
     labelEdition2: 'Edition 2',
+    labelEdition3: 'English',
     placeholder: 'Enter hymn number',
     resultEdition1: 'Edition 1:',
     resultEdition2: 'Edition 2:',
+    resultEdition3: 'English:',
     sheetmusic: 'Sheetmusic:',
     notFound: 'Hymn not found',
     tabConvert: 'Convert',
     tabAdd: 'Add',
     labelAddEdition1: 'Edition 1',
     labelAddEdition2: 'Edition 2',
+    labelAddEdition3: 'English',
     labelAddSheetmusic: 'Sheetmusic',
     btnAdd: 'Add',
     successAdd: 'Hymn added successfully',
@@ -63,6 +70,7 @@ const translations = {
     sessionClosed: 'Session closed',
     addEdition1Placeholder: 'Enter new edition 1 number',
     addEdition2Placeholder: 'Enter new edition 2 number',
+    addEdition3Placeholder: 'Enter new English number',
     addSheetmusicPlaceholder: 'Optional'
   }
 };
@@ -122,7 +130,7 @@ async function loadHymns() {
   if (loader) loader.classList.remove('hidden');
   
   try {
-    const snapshot = await db.collection('hymns').get();
+    const snapshot = await db.collection('newHymns').get();
     hymns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     hymns.sort((a, b) => a.edition1 - b.edition1);
     hymnsLoaded = true;
@@ -218,7 +226,9 @@ const resultCard = document.getElementById('result');
 const notFoundCard = document.getElementById('not-found');
 const resultEdition1 = document.getElementById('result-edition1');
 const resultEdition2 = document.getElementById('result-edition2');
+const resultEdition3 = document.getElementById('result-edition3');
 const sheetmusicSpan = document.getElementById('sheetmusic');
+const edition3Input = document.getElementById('edition3-input');
 
 function searchByEdition1(number) {
   return hymns.find(h => h.edition1 === number);
@@ -228,12 +238,17 @@ function searchByEdition2(number) {
   return hymns.find(h => h.edition2 === number);
 }
 
+function searchByEdition3(number) {
+  return hymns.find(h => h.english === number);
+}
+
 function renderResult(result) {
   clearResult();
   
   if (result) {
     resultEdition1.textContent = result.edition1;
     resultEdition2.textContent = result.edition2;
+    resultEdition3.textContent = result.english || '--';
     sheetmusicSpan.textContent = result.sheetmusic || '--';
     resultCard.classList.remove('hidden');
   } else {
@@ -249,6 +264,7 @@ function clearResult() {
 function handleEdition1Input() {
   const value = edition1Input.value;
   edition2Input.value = '';
+  edition3Input.value = '';
   clearResult();
   
   if (!value) return;
@@ -265,6 +281,7 @@ function handleEdition1Input() {
 function handleEdition2Input() {
   const value = edition2Input.value;
   edition1Input.value = '';
+  edition3Input.value = '';
   clearResult();
   
   if (!value) return;
@@ -275,6 +292,24 @@ function handleEdition2Input() {
   if (!hymnsLoaded) return;
   
   const result = searchByEdition2(number);
+  renderResult(result);
+}
+
+function handleEdition3Input() {
+  const value = edition3Input.value;
+  edition1Input.value = '';
+  edition2Input.value = '';
+  clearResult();
+  
+  if (!value) return;
+  
+  const number = parseInt(value, 10);
+  if (isNaN(number) || number < 1) return;
+  
+  if (!hymnsLoaded) return;
+  
+  const result = searchByEdition3(number);
+  console.log('Buscando english:', number, 'Resultado:', result);
   renderResult(result);
 }
 
@@ -290,8 +325,15 @@ function clearEdition2() {
   edition2Input.focus();
 }
 
+function clearEdition3() {
+  edition3Input.value = '';
+  clearResult();
+  edition3Input.focus();
+}
+
 edition1Input.addEventListener('input', handleEdition1Input);
 edition2Input.addEventListener('input', handleEdition2Input);
+edition3Input.addEventListener('input', handleEdition3Input);
 
 edition1Input.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') handleEdition1Input();
@@ -299,6 +341,10 @@ edition1Input.addEventListener('keydown', (e) => {
 
 edition2Input.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') handleEdition2Input();
+});
+
+edition3Input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleEdition3Input();
 });
 
 clearEdition1Btn.addEventListener('click', clearEdition1);
@@ -319,6 +365,17 @@ edition2Input.addEventListener('paste', (e) => {
   edition2Input.value = numbers;
   handleEdition2Input();
 });
+
+edition3Input.addEventListener('paste', (e) => {
+  e.preventDefault();
+  const paste = (e.clipboardData || window.clipboardData).getData('text');
+  const numbers = paste.replace(/[^0-9]/g, '');
+  edition3Input.value = numbers;
+  handleEdition3Input();
+});
+
+const clearEdition3Btn = document.getElementById('clear-edition3');
+clearEdition3Btn.addEventListener('click', clearEdition3);
 
 loadHymns();
 initTheme();
@@ -449,11 +506,14 @@ addForm.addEventListener('submit', async (e) => {
   
   const edition1 = parseInt(document.getElementById('add-edition1').value, 10);
   const edition2 = parseInt(document.getElementById('add-edition2').value, 10);
+  const edition3Input = document.getElementById('add-edition3').value;
+  const edition3 = edition3Input ? parseInt(edition3Input, 10) : null;
   const sheetmusic = document.getElementById('add-sheetmusic').value || null;
   
   const newHymn = {
     edition1,
     edition2,
+    english: edition3,
     sheetmusic
   };
   
@@ -463,7 +523,7 @@ addForm.addEventListener('submit', async (e) => {
   addInputs.forEach(input => input.disabled = true);
   
   try {
-    await db.collection('hymns').doc(`new_hymn_${newHymn.edition1}`).set(newHymn)
+    await db.collection('newHymns').doc(`new_hymn_${newHymn.edition1}`).set(newHymn)
     console.log('Nuevo himno agregado:', newHymn);
     addForm.reset();
     

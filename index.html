@@ -60,15 +60,9 @@
 
   <div class="container">
     <div class="card">
-      <header class="header">
-        <div class="header-top">
-          <div class="title-wrapper">
-            <p id="user-display" class="user-display"></p>
-            <p class="subtitle" data-i18n="subtitle">Convert hymn numbers between editions</p>
-          </div>
-        </div>
-      </header>
-
+      <div class="title-wrapper">
+        <p class="subtitle" data-i18n="subtitle">Convert hymn numbers between editions</p>
+      </div>
       <div class="tabs">
         <button class="tab-btn active" data-tab="convert" data-i18n="tabConvert">Convert</button>
         <button class="tab-btn" data-tab="add" data-i18n="tabAdd">Agregar</button>
@@ -107,16 +101,36 @@
               <button type="button" id="clear-edition1" class="clear-btn" aria-label="Clear">&times;</button>
             </div>
           </div>
+
+          <div class="search-section">
+            <label for="edition3-input" class="label" data-i18n="labelEdition3">English</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                inputmode="numeric"
+                id="edition3-input"
+                class="input"
+                placeholder="Enter hymn number"
+                data-i18n-placeholder="placeholder"
+                pattern="[0-9]*"
+              >
+              <button type="button" id="clear-edition3" class="clear-btn" aria-label="Clear">&times;</button>
+            </div>
+          </div>
         </div>
 
         <div id="result" class="result-card hidden">
+          <div class="result-row">
+            <span class="result-label" data-i18n="resultEdition2">Edition 2:</span>
+            <span id="result-edition2" class="result-value">--</span>
+          </div>
           <div class="result-row">
             <span class="result-label" data-i18n="resultEdition1">Edition 1:</span>
             <span id="result-edition1" class="result-value">--</span>
           </div>
           <div class="result-row">
-            <span class="result-label" data-i18n="resultEdition2">Edition 2:</span>
-            <span id="result-edition2" class="result-value">--</span>
+            <span class="result-label" data-i18n="resultEdition3">English:</span>
+            <span id="result-edition3" class="result-value">--</span>
           </div>
           <div class="result-row">
             <span class="result-label" data-i18n="sheetmusic">Sheetmusic:</span>
@@ -132,12 +146,16 @@
       <div id="tab-add" class="tab-content hidden">
         <form id="add-form" class="add-form">
           <div class="search-section">
+            <label for="add-edition2" class="label" data-i18n="labelAddEdition2">Edition 2</label>
+            <input type="number" id="add-edition2" class="input" data-i18n-placeholder="addEdition2Placeholder" placeholder="1" required>
+          </div>
+          <div class="search-section">
             <label for="add-edition1" class="label" data-i18n="labelAddEdition1">Edition 1</label>
             <input type="number" id="add-edition1" class="input" data-i18n-placeholder="addEdition1Placeholder" placeholder="1" required>
           </div>
           <div class="search-section">
-            <label for="add-edition2" class="label" data-i18n="labelAddEdition2">Edition 2</label>
-            <input type="number" id="add-edition2" class="input" data-i18n-placeholder="addEdition2Placeholder" placeholder="1" required>
+            <label for="add-edition3" class="label" data-i18n="labelAddEdition3">English</label>
+            <input type="number" id="add-edition3" class="input" data-i18n-placeholder="addEdition3Placeholder" placeholder="Optional">
           </div>
           <div class="search-section">
             <label for="add-sheetmusic" class="label" data-i18n="labelAddSheetmusic">Sheetmusic</label>
