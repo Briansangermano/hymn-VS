@@ -309,7 +309,6 @@ function handleEdition3Input() {
   if (!hymnsLoaded) return;
   
   const result = searchByEdition3(number);
-  console.log('Buscando english:', number, 'Resultado:', result);
   renderResult(result);
 }
 
@@ -377,23 +376,22 @@ edition3Input.addEventListener('paste', (e) => {
 const clearEdition3Btn = document.getElementById('clear-edition3');
 clearEdition3Btn.addEventListener('click', clearEdition3);
 
-loadHymns();
-initTheme();
-initLang();
-updateTabsVisibility();
-
 // Login
 const loginToggle = document.getElementById('login-toggle');
 const loginModal = document.getElementById('login-modal');
 const loginForm = document.getElementById('login-form');
 const closeLoginBtn = document.getElementById('close-login');
 const loginIcon = loginToggle.querySelector('svg');
+const titleWrapper = document.getElementById('title-wrapper');
+
+function updateTitleWrapperVisibility() {
+  if (titleWrapper) {
+    titleWrapper.classList.toggle('hidden', isLoggedIn);
+  }
+}
 
 function updateLoginButton() {
-  console.log('updateLoginButton called, isLoggedIn:', isLoggedIn);
   const svg = loginToggle.querySelector('svg');
-  console.log('SVG found:', svg);
-  console.log('SVG innerHTML before:', svg.innerHTML);
   if (isLoggedIn) {
     svg.innerHTML = '<path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>';
   } else {
@@ -401,7 +399,7 @@ function updateLoginButton() {
   }
   loginToggle.setAttribute('aria-label', isLoggedIn ? 'Logout' : 'Login');
   loginToggle.title = isLoggedIn ? 'Cerrar sesión' : 'Iniciar sesión';
-  console.log('SVG innerHTML after:', svg.innerHTML);
+  updateTitleWrapperVisibility();
 }
 
 loginToggle.addEventListener('click', () => {
@@ -564,3 +562,9 @@ if ('serviceWorker' in navigator) {
     registration.active.postMessage({ type: 'getVersion' }, [channel.port2]);
   });
 }
+
+loadHymns();
+initTheme();
+initLang();
+updateTabsVisibility();
+updateTitleWrapperVisibility();

@@ -118,6 +118,10 @@ body {
   flex: 1;
 }
 
+.title-wrapper {
+  margin-bottom: 25px;
+}
+
 .header-controls {
   display: flex;
   gap: 0.5rem;
@@ -450,7 +454,7 @@ body {
 
 .toast {
   position: fixed;
-  top: 2rem;
+  top: 5rem;
   left: 50%;
   width: max-content;
   transform: translateX(-50%);
