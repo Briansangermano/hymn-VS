@@ -5524,7 +5524,7 @@
 
       for (let i = 0; i < hymns.length; i++) {
         try {
-          await db.collection('newHymns').add(hymns[i]);
+          await db.collection('newHymns').doc(`hymn_${hymns[i].edition2}`).set(hymns[i]);
           successCount++;
           if (successCount % 50 === 0) {
             log(`Subidos ${successCount}/${hymns.length}...`);
