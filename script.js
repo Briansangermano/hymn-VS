@@ -485,3 +485,9 @@ addForm.addEventListener('submit', async (e) => {
     addInputs.forEach(input => input.disabled = false);
   }
 });
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload(true);
+  });
+}
